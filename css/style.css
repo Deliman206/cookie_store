@@ -1,0 +1,48 @@
+html {
+    height: 100%;
+}
+
+body {
+    width: 1000px;
+    height: 100%;
+    background-color: #fafce3;
+}
+
+ol{
+    list-style-type: decimal;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: inline-block;
+}
+h2 {
+    font-size: 20px;
+    width: 150px 
+}
+p {
+    font-size: 15px;
+    width: 500px;
+    display: inline-block;
+}
+img{
+    float: right;
+    margin-left: 100px;
+    height: 75%;
+    display: inline-block;
+}
+#img1{
+    float:left;
+    margin-left:10px;
+    margin-right: 10px;
+    height: 25%;
+    display: inline-block;
+}
+#hobby{
+    display: inline-block;
+    width: 100px;
+    margin-left: 300px;
+}
+#education{
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+}
