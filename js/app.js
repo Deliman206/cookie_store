@@ -6,7 +6,7 @@
 // we get diff random numbers in each hour
 // we also get diff # cookies sold per hour
 // thus cookie total is the sum of many elements in an array
-var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','TOTAL'];
 //Cookie Stand Alki
 var alkiCookieStand = {
     name: 'Alki',
@@ -16,23 +16,28 @@ var alkiCookieStand = {
     storeHours: 14,
     custDay: [],
     cookieSoldDay: [],
+    cookieDayTotal: 0,
     custHour: function(){
         for (var i = 0; i<=this.storeHours; i++){
             this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
-            console.log(this.custDay);
         }
     },
     cookieSoldHour: function(){
         for(var i=0; i<=this.storeHours; i++){
             this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
-            console.log(this.cookieSoldDay);
+            this.cookieDayTotal = this.cookieDayTotal + this.cookieSoldDay[i];
+            
+            if (this.cookieSoldDay.length === this.storeHours+1 ){
+                this.cookieSoldDay.push(this.cookieDayTotal);
+            }
         }
+        console.log(this.cookieSoldDay);
     },
     render: function(){
         this.custHour();
         this.cookieSoldHour();
         var ulEl = document.getElementById('alkiStore');
-        for (var i=0; i<=this.storeHours; i++){
+        for (var i=0; i<=this.storeHours+1; i++){
             //create element
             var liEl = document.createElement('li');
             //give it content
@@ -52,23 +57,28 @@ var pikeCookieStand = {
     storeHours: 14,
     custDay: [],
     cookieSoldDay: [],
+    cookieDayTotal: 0,
     custHour: function(){
         for (var i = 0; i<=this.storeHours; i++){
             this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
-            console.log(this.custDay);
         }
     },
     cookieSoldHour: function(){
         for(var i=0; i<=this.storeHours; i++){
             this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
-            console.log(this.cookieSoldDay);
+            this.cookieDayTotal = this.cookieDayTotal + this.cookieSoldDay[i];
+            
+            if (this.cookieSoldDay.length === this.storeHours+1 ){
+                this.cookieSoldDay.push(this.cookieDayTotal);
+            }
         }
+        console.log(this.cookieSoldDay);
     },
     render: function(){
         this.custHour();
         this.cookieSoldHour();
     var ulEl = document.getElementById('pikeStore');
-    for (var i=0; i<=this.storeHours; i++){
+    for (var i=0; i<=this.storeHours+1; i++){
         //create element
         var liEl = document.createElement('li');
         //give it content
@@ -88,31 +98,34 @@ var seaTacCookieStand = {
     storeHours: 14,
     custDay: [],
     cookieSoldDay: [],
+    cookieDayTotal: 0,
     custHour: function(){
         for (var i = 0; i<=this.storeHours; i++){
             this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
-            console.log(this.custDay);
         }
     },
     cookieSoldHour: function(){
         for(var i=0; i<=this.storeHours; i++){
             this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
-            console.log(this.cookieSoldDay);
+            this.cookieDayTotal = this.cookieDayTotal + this.cookieSoldDay[i];
+            
+            if (this.cookieSoldDay.length === this.storeHours+1 ){
+                this.cookieSoldDay.push(this.cookieDayTotal);
+            }
         }
+        console.log(this.cookieSoldDay);
     },
     render: function(){
         this.custHour();
         this.cookieSoldHour();
         var ulEl = document.getElementById('seaTacStore');
-        for (var i=0; i<=this.storeHours; i++){
+        for (var i=0; i<=this.storeHours+1; i++){
             //create element
             var liEl = document.createElement('li');
             //give it content
             liEl.textContent = hours[i] + ': '+ this.cookieSoldDay[i];
-            console.log(this.cookieSoldDay[i]);
             //append to DOM
             //parent.appendChild(child)
-            console.log(liEl);
             ulEl.appendChild(liEl);
         }
     }
@@ -126,23 +139,28 @@ var capHillCookieStand = {
     storeHours: 14,
     custDay: [],
     cookieSoldDay: [],
+    cookieDayTotal: 0,
     custHour: function(){
         for (var i = 0; i<=this.storeHours; i++){
             this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
-            console.log(this.custDay);
         }
     },
     cookieSoldHour: function(){
         for(var i=0; i<=this.storeHours; i++){
             this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
-            console.log(this.cookieSoldDay);
+            this.cookieDayTotal = this.cookieDayTotal + this.cookieSoldDay[i];
+            
+            if (this.cookieSoldDay.length === this.storeHours+1 ){
+                this.cookieSoldDay.push(this.cookieDayTotal);
+            }
         }
+        console.log(this.cookieSoldDay);
     },
     render: function(){
         this.custHour();
         this.cookieSoldHour();
         var ulEl = document.getElementById('capHillStore');
-        for (var i=0; i<=this.storeHours; i++){
+        for (var i=0; i<=this.storeHours+1; i++){
             //create element
             var liEl = document.createElement('li');
             //give it content
@@ -161,23 +179,28 @@ var seaCenterCookieStand = {
     storeHours: 14,
     custDay: [],
     cookieSoldDay: [],
+    cookieDayTotal: 0,
     custHour: function(){
         for (var i = 0; i<=this.storeHours; i++){
             this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
-            console.log(this.custDay);
         }
     },
     cookieSoldHour: function(){
         for(var i=0; i<=this.storeHours; i++){
             this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
-            console.log(this.cookieSoldDay);
+            this.cookieDayTotal = this.cookieDayTotal + this.cookieSoldDay[i];
+            
+            if (this.cookieSoldDay.length === this.storeHours+1 ){
+                this.cookieSoldDay.push(this.cookieDayTotal);
+            }
         }
+        console.log(this.cookieSoldDay);
     },
     render: function(){
         this.custHour();
         this.cookieSoldHour();
         var ulEl = document.getElementById('seaCenterStore');
-        for (var i=0; i<=this.storeHours; i++){
+        for (var i=0; i<=this.storeHours+1; i++){
             //create element
             var liEl = document.createElement('li');
             //give it content
@@ -186,7 +209,7 @@ var seaCenterCookieStand = {
             //parent.appendChild(child)
             ulEl.appendChild(liEl);
         }
-    }
+    },
 };
 alkiCookieStand.render();
 pikeCookieStand.render();
