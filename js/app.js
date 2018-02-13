@@ -79,12 +79,51 @@ var pikeCookieStand = {
     }
 }
 };
+//Cookie Stand SeaTac
+var seaTacCookieStand = {
+    name: 'SeaTac',
+    minCust: 3,
+    maxCust: 24,
+    avgCookieCust: 1.2,
+    storeHours: 14,
+    custDay: [],
+    cookieSoldDay: [],
+    custHour: function(){
+        for (var i = 0; i<=this.storeHours; i++){
+            this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
+            console.log(this.custDay);
+        }
+    },
+    cookieSoldHour: function(){
+        for(var i=0; i<=this.storeHours; i++){
+            this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
+            console.log(this.cookieSoldDay);
+        }
+    },
+    render: function(){
+        this.custHour();
+        this.cookieSoldHour();
+        var ulEl = document.getElementById('seaTacStore');
+        for (var i=0; i<=this.storeHours; i++){
+            //create element
+            var liEl = document.createElement('li');
+            //give it content
+            liEl.textContent = hours[i] + ': '+ this.cookieSoldDay[i];
+            console.log(this.cookieSoldDay[i]);
+            //append to DOM
+            //parent.appendChild(child)
+            console.log(liEl);
+            ulEl.appendChild(liEl);
+        }
+    }
+};
+//Capital Hill Cookie Stand
 //Cookie Stand Pike
-// var seaTacCookieStand = {
-//     name: 'SeaTac',
-//     minCust: 3,
-//     maxCust: 24,
-//     avgCookieCust: 1.2,
+// var capHillCookieStand = {
+//     name: 'capHill',
+//     minCust: 23,
+//     maxCust: 65,
+//     avgCookieCust: 6.3,
 //     storeHours: 14,
 //     custDay: [],
 //     cookieSoldDay: [],
@@ -103,7 +142,7 @@ var pikeCookieStand = {
 //     render: function(){
 //         this.custHour();
 //         this.cookieSoldHour();
-//         var ulEl = document.getElementById('seatacStore');
+//         var ulEl = document.getElementById('capHillStore');
 //         for (var i=0; i<=this.storeHours; i++){
 //             //create element
 //             var liEl = document.createElement('li');
@@ -117,3 +156,5 @@ var pikeCookieStand = {
 // };
 alkiCookieStand.render();
 pikeCookieStand.render();
+seaTacCookieStand.render();
+// capHillCookieStand.render();
