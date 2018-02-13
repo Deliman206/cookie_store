@@ -173,9 +173,9 @@ var capHillCookieStand = {
 };
 var seaCenterCookieStand = {
     name: 'Seattle Center',
-    minCust: 23,
-    maxCust: 65,
-    avgCookieCust: 6.3,
+    minCust: 11,
+    maxCust: 38,
+    avgCookieCust: 3.7,
     storeHours: 14,
     custDay: [],
     cookieSoldDay: [],

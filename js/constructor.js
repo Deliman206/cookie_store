@@ -1,4 +1,5 @@
 var patStores = [];
+var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','TOTAL'];
 function Store(id, name, minCust, maxCust, avgCookieCust){ 
     this.id = id;
     this.name = name;
@@ -10,6 +11,7 @@ function Store(id, name, minCust, maxCust, avgCookieCust){
     this.cookieSoldDay = [];
     this.cookieDayTotal = 0;
     patStores.push(this);
+    this.render();
 }
 Store.prototype.custHour = function(){
     for (var i = 0; i<=this.storeHours; i++){
@@ -41,5 +43,7 @@ Store.prototype.render = function(){
     }
 };
 new Store('alkiStore', 'Alki Store', 2, 16, 4.6);
-patStores.push()
-console.log(Store[0]);
+new Store('pikeStore','Pike Store', 23, 65, 6.3,);
+new Store('seaTacStore', 'SeaTac Store', 3, 24, 1.2);
+new Store('capHillStore', 'Capital Hill Seattle', 23, 65, 6.3);
+new Store('seaCenterStore','Seattle Center Store', 11, 38, 3.7);
