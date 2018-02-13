@@ -118,43 +118,42 @@ var seaTacCookieStand = {
     }
 };
 //Capital Hill Cookie Stand
-//Cookie Stand Pike
-// var capHillCookieStand = {
-//     name: 'capHill',
-//     minCust: 23,
-//     maxCust: 65,
-//     avgCookieCust: 6.3,
-//     storeHours: 14,
-//     custDay: [],
-//     cookieSoldDay: [],
-//     custHour: function(){
-//         for (var i = 0; i<=this.storeHours; i++){
-//             this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
-//             console.log(this.custDay);
-//         }
-//     },
-//     cookieSoldHour: function(){
-//         for(var i=0; i<=this.storeHours; i++){
-//             this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
-//             console.log(this.cookieSoldDay);
-//         }
-//     },
-//     render: function(){
-//         this.custHour();
-//         this.cookieSoldHour();
-//         var ulEl = document.getElementById('capHillStore');
-//         for (var i=0; i<=this.storeHours; i++){
-//             //create element
-//             var liEl = document.createElement('li');
-//             //give it content
-//             liEl.textContent = hours[i] + ': '+ this.cookieSoldDay[i];
-//             //append to DOM
-//             //parent.appendChild(child)
-//             ulEl.appendChild(liEl);
-//         }
-//     }
-// };
+var capHillCookieStand = {
+    name: 'Capital Hill',
+    minCust: 23,
+    maxCust: 65,
+    avgCookieCust: 6.3,
+    storeHours: 14,
+    custDay: [],
+    cookieSoldDay: [],
+    custHour: function(){
+        for (var i = 0; i<=this.storeHours; i++){
+            this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
+            console.log(this.custDay);
+        }
+    },
+    cookieSoldHour: function(){
+        for(var i=0; i<=this.storeHours; i++){
+            this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
+            console.log(this.cookieSoldDay);
+        }
+    },
+    render: function(){
+        this.custHour();
+        this.cookieSoldHour();
+        var ulEl = document.getElementById('capHillStore');
+        for (var i=0; i<=this.storeHours; i++){
+            //create element
+            var liEl = document.createElement('li');
+            //give it content
+            liEl.textContent = hours[i] + ': '+ this.cookieSoldDay[i];
+            //append to DOM
+            //parent.appendChild(child)
+            ulEl.appendChild(liEl);
+        }
+    }
+};
 alkiCookieStand.render();
 pikeCookieStand.render();
 seaTacCookieStand.render();
-// capHillCookieStand.render();
+capHillCookieStand.render();
