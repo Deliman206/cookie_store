@@ -1,5 +1,7 @@
 var patStores = [];
-var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','TOTAL'];
+var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','TOTAL'];
+var storeTable = document.getElementById('stores');
+render2();
 function Store(id, name, minCust, maxCust, avgCookieCust){ 
     this.id = id;
     this.name = name;
@@ -11,6 +13,8 @@ function Store(id, name, minCust, maxCust, avgCookieCust){
     this.cookieSoldDay = [];
     this.cookieDayTotal = 0;
     patStores.push(this);
+    this.custHour();
+    this.cookieSoldHour();
     this.render();
 }
 Store.prototype.custHour = function(){
@@ -28,22 +32,39 @@ Store.prototype.cookieSoldHour = function(){
         }
     }  
 };
-Store.prototype.render = function(){
-    this.custHour();
-    this.cookieSoldHour();
-    var ulEl = document.getElementById(this.id);
-    for (var i=0; i<=this.storeHours+1; i++){
-        //create element
-        var liEl = document.createElement('li');
-        //give it content
-        liEl.textContent = hours[i] + ': '+ this.cookieSoldDay[i];
-        //append to DOM
-        //parent.appendChild(child)
-        ulEl.appendChild(liEl);
+Store.prototype.render = function() {
+    // create tr
+    var trEl = document.createElement('tr');
+    // create td
+    var tdEl = document.createElement('td');
+    // give td content (Name for an individual store)
+    tdEl.textContent = this.name;
+    // append the td
+    trEl.appendChild(tdEl);
+
+    for(var i=0; i<hours.length; i++){
+    // create td
+    tdEl = document.createElement('td');
+    // give td content (Name for an individual store)
+    tdEl.textContent = this.cookieSoldDay[i];
+    // append the td
+    trEl.appendChild(tdEl);
     }
-};
+    storeTable.appendChild(trEl);
+} 
 new Store('alkiStore', 'Alki Store', 2, 16, 4.6);
 new Store('pikeStore','Pike Store', 23, 65, 6.3,);
 new Store('seaTacStore', 'SeaTac Store', 3, 24, 1.2);
 new Store('capHillStore', 'Capital Hill Seattle', 23, 65, 6.3);
 new Store('seaCenterStore','Seattle Center Store', 11, 38, 3.7);
+
+function render2(){
+    var trEl = document.getElementById(storeTable);
+    trEl = document.createElement('tr');
+    for (var i=0; i<hours.length; i++){
+        var thEl = document.createElement('th');
+        thEl.textcontent = hours[i];
+        trEl.appendChild(thEl);
+    }
+    storeTable.appendChild(trEl);
+}
