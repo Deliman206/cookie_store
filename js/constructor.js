@@ -1,7 +1,7 @@
 var patStores = [];
 var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','TOTAL'];
 var storeTable = document.getElementById('stores');
-render2();
+renderTimeHeader();
 function Store(id, name, minCust, maxCust, avgCookieCust){ 
     this.id = id;
     this.name = name;
@@ -33,36 +33,32 @@ Store.prototype.cookieSoldHour = function(){
     }  
 };
 Store.prototype.render = function() {
-    // create tr
-    var trEl = document.createElement('tr');
-    // create td
-    var tdEl = document.createElement('td');
-    // give td content (Name for an individual store)
-    tdEl.textContent = this.name;
-    // append the td
-    trEl.appendChild(tdEl);
+    var trEl = document.createElement('tr'); // create tr
+    var tdEl = document.createElement('td'); // create td
+    tdEl.textContent = this.name; // give td content (Name for an individual store)
+    trEl.appendChild(tdEl);  // append the td
 
     for(var i=0; i<hours.length; i++){
-    // create td
-    tdEl = document.createElement('td');
-    // give td content (Name for an individual store)
-    tdEl.textContent = this.cookieSoldDay[i];
-    // append the td
-    trEl.appendChild(tdEl);
+        tdEl = document.createElement('td'); // create td
+        tdEl.textContent = this.cookieSoldDay[i]; // give td content (Name for an individual store)
+        trEl.appendChild(tdEl); // append the td
     }
-    storeTable.appendChild(trEl);
+    storeTable.appendChild(trEl); // append the tr
 } 
+
 new Store('alkiStore', 'Alki Store', 2, 16, 4.6);
 new Store('pikeStore','Pike Store', 23, 65, 6.3,);
 new Store('seaTacStore', 'SeaTac Store', 3, 24, 1.2);
 new Store('capHillStore', 'Capital Hill Seattle', 23, 65, 6.3);
 new Store('seaCenterStore','Seattle Center Store', 11, 38, 3.7);
 
-function render2(){
-    var trEl = document.getElementById(storeTable);
-    trEl = document.createElement('tr');
+function renderTimeHeader(){
+    var trEl = document.createElement('tr');
+    var thEl = document.createElement('th');
+    thEl.textContent = 'Locations';
+    trEl.appendChild(thEl);
     for (var i=0; i<hours.length; i++){
-        var thEl = document.createElement('th');
+        thEl = document.createElement('th');
         thEl.textcontent = hours[i];
         trEl.appendChild(thEl);
     }
