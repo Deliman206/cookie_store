@@ -3,8 +3,6 @@ var allStoresTotals = [];
 var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','TOTAL'];
 var storeTable = document.getElementById('stores');
 var dataForm = document.getElementById('data-form');
-var storesTable = document.getElementById('stores');
-renderTimeHeader();
 function Store(name, minCust, maxCust, avgCookieCust){ 
     this.name = name;
     this.minCust = minCust;
@@ -45,24 +43,11 @@ Store.prototype.render = function() {
 
     for(var i=0; i<hours.length; i++){
         tdEl = document.createElement('td'); // create td
-        tdEl.textContent = this.cookieSoldDay[i]; // give td content (Name for an individual store)
+        tdEl.textContent = this.cookieSoldDay[i]; // give td content (Cookies Sold for an individual store)
         trEl.appendChild(tdEl); // append the td
     }
     storeTable.appendChild(trEl); // append the tr
 }
-function renderAllStores(){
-    stores.innerHTML = '';
-    for(var i=0; i<patStores.length; i++){
-        stores.appendChild(patStores[i].render());
-    }
-}
-//Inputs for Stores and Data
-new Store('Alki Store', 2, 16, 4.6);
-new Store('Pike Store', 23, 65, 6.3,);
-new Store('SeaTac Store', 3, 24, 1.2);
-new Store('Capital Hill Seattle', 23, 65, 6.3);
-new Store('Seattle Center Store', 11, 38, 3.7);
-new Store('Sean Place', 10, 50, 5.5);
 //Handler for Submission Form
 function handleDataSubmit(event){
     event.preventDefault();
@@ -70,9 +55,9 @@ function handleDataSubmit(event){
         return alert('Fields cannot be empty!');
     }
     var location = event.target.storeLocation.value;
-    var min = event.target.minCust.value;
-    var max = event.target.maxCust.value;
-    var avg = event.target.avgSale.value;
+    var min = parseInt(event.target.minCust.value);
+    var max = parseInt(event.target.maxCust.value);
+    var avg = parseInt(event.target.avgSale.value);
     //Create New Store Object
     var newStore = new Store(location,min,max,avg);
     //Clears Submission Form
@@ -110,7 +95,7 @@ function renderAllStoresDayTotal(){
     }
     storeTable.appendChild(trEl);
 }
-//Creates Data fro Total Sales of Company at each Time
+//Creates Data for Total Sales of Company at each Time
 function allStoresTotal(){
     for(var i = 0; i<hours.length; i++){
         var totals=0;
@@ -120,6 +105,21 @@ function allStoresTotal(){
         allStoresTotals.push(totals);
     }
 }
+//Clears the Table and Reloads Everytime New Data is Entered
+function renderAllStores(){
+    stores.innerHTML = '';
+    for(var i=0; i<patStores.length; i++){
+        stores.appendChild(patStores[i].render());
+    }
+}
+//Calls First Row with Company Hours
+renderTimeHeader();
+//Inputs for Stores and Data
+new Store('Alki Store', 2, 16, 4.6);
+new Store('Pike Store', 23, 65, 6.3,);
+new Store('SeaTac Store', 3, 24, 1.2);
+new Store('Capital Hill Seattle', 23, 65, 6.3);
+new Store('Seattle Center Store', 11, 38, 3.7);
 //Listens for SUBMIT and the does function handleDataSubmit
 dataForm.addEventListener('submit', handleDataSubmit);
 //Calls Final Row with Company Totals
