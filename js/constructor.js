@@ -57,6 +57,25 @@ function handleDataSubmit(event){
     var min = parseInt(event.target.minCust.value);
     var max = parseInt(event.target.maxCust.value);
     var avg = parseFloat(event.target.avgSale.value);
+
+    for(var i=0; i< patStores.length; i++){
+        if(name === patStores[i].name){
+            patStores[i].custDay= [];
+            patStores[i].cookieSoldDay =[];
+            patStores[i].cookieDayTotal =0;
+
+            patStores[i].minCust=min;
+            patStores[i].maxCust=max;
+            patStores[i].avgCookieCust=avg;
+
+            patStores[i].custHour();
+            patStores[i].cookieSoldHour();
+
+            event.target.reset();
+            renderAllStores();
+            return;
+        }
+    }
     //Create New Store Object
     var newStore = new Store(name,min,max,avg);
     //Clears Submission Form
