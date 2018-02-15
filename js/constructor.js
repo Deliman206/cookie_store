@@ -52,8 +52,6 @@ new Store('pikeStore','Pike Store', 23, 65, 6.3,);
 new Store('seaTacStore', 'SeaTac Store', 3, 24, 1.2);
 new Store('capHillStore', 'Capital Hill Seattle', 23, 65, 6.3);
 new Store('seaCenterStore','Seattle Center Store', 11, 38, 3.7);
-new Store('shoreline','Shoreline Store', 10, 50, 5.5); 
-new Store('riley','Rileys Place',15,75,3.5);
 
 function renderTimeHeader(){
     var trEl = document.createElement('tr');
