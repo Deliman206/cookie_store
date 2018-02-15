@@ -8,6 +8,27 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
+    <form id = "data-form">
+        <fieldset>
+            <legend>Data Submission Form</legend>
+
+            <label for="storeLocation">Store Location: </label>
+            <input name="storeLocation" type="text" size="20" />
+
+            <label for="minCust">Minimum Customers per Hour: </label>
+            <input name="minCust" type="text" size="5" />
+
+            <label for="maxCust">Maximum Customers per Hour: </label>
+            <input name="maxCust" type="text" size="5" />
+
+            <label for="avgSale">Average Sale per Customer: </label>
+            <input name="avgSale" type="text" size="5" />
+
+            <button type="submit">Submit Data</button>
+        </fieldset>
+    </form>
+
+
     <h1>Pat's Salmon Cookie Store</h1>
     <table id= 'stores'></table>
 
