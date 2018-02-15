@@ -49,19 +49,19 @@ Store.prototype.render = function() {
     storeTable.appendChild(trEl); // append the tr
 }
 //Handler for Submission Form
-function handleDataSubmit(event){
+function handleDataSubmit(){
     event.preventDefault();
     if (!event.target.storeLocation.value||!event.target.minCust.value||!event.target.maxCust.value||!event.target.avgSale.value){
         return alert('Fields cannot be empty!');
     }
-    var location = event.target.storeLocation.value;
+    var name = event.target.storeLocation.value;
     var min = parseInt(event.target.minCust.value);
     var max = parseInt(event.target.maxCust.value);
     var avg = parseInt(event.target.avgSale.value);
     //Create New Store Object
-    var newStore = new Store(location,min,max,avg);
+    var newStore = new Store(name,min,max,avg);
     //Clears Submission Form
-    event.target.location.value = null;
+    event.target.name.value = null;
     event.target.min.value = null;
     event.target.max.value = null;
     event.target.avg.value = null;
