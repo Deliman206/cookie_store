@@ -1,5 +1,5 @@
 var patStores = [];
-var allStoresTotal = [];
+var allStoresTotals = [];
 var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','TOTAL'];
 var storeTable = document.getElementById('stores');
 renderTimeHeader();
@@ -52,6 +52,8 @@ new Store('pikeStore','Pike Store', 23, 65, 6.3,);
 new Store('seaTacStore', 'SeaTac Store', 3, 24, 1.2);
 new Store('capHillStore', 'Capital Hill Seattle', 23, 65, 6.3);
 new Store('seaCenterStore','Seattle Center Store', 11, 38, 3.7);
+new Store('shoreline','Shoreline Store', 10, 50, 5.5); 
+new Store('riley','Rileys Place',15,75,3.5);
 
 function renderTimeHeader(){
     var trEl = document.createElement('tr');
@@ -65,6 +67,7 @@ function renderTimeHeader(){
     }
     storeTable.appendChild(trEl);
 }
+//All Stores Total for Day Row
 function renderAllStoresDayTotal(){
     var trEl = document.createElement('tr');
     var thEl = document.createElement('th');
@@ -72,8 +75,20 @@ function renderAllStoresDayTotal(){
     trEl.appendChild(thEl);
     for( var i=0; i<hours.length; i++){
         thEl = document.createElement('th');
-        thEl.textContent = allStoresTotal[i];
+        thEl.textContent = allStoresTotals[i];
         trEl.appendChild(thEl);
     }
     storeTable.appendChild(trEl);
 }
+function allStoresTotal(){
+    for(var i = 0; i<hours.length; i++){
+        var totals=0;
+        for(var j = 0; j< patStores.length; j++){
+            totals+=patStores[j].cookieSoldDay[i];
+        }
+        allStoresTotals.push(totals);
+    }
+}
+
+allStoresTotal();
+renderAllStoresDayTotal();
