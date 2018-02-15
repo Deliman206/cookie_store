@@ -2,9 +2,10 @@ var patStores = [];
 var allStoresTotals = [];
 var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','TOTAL'];
 var storeTable = document.getElementById('stores');
+var dataForm = document.getElementById('data-form');
+var storesTable = document.getElementById('stores');
 renderTimeHeader();
-function Store(id, name, minCust, maxCust, avgCookieCust){ 
-    this.id = id;
+function Store(name, minCust, maxCust, avgCookieCust){ 
     this.name = name;
     this.minCust = minCust;
     this.maxCust = maxCust;
@@ -18,11 +19,13 @@ function Store(id, name, minCust, maxCust, avgCookieCust){
     this.cookieSoldHour();
     this.render();
 }
+//Populates this.custDay[]
 Store.prototype.custHour = function(){
     for (var i = 0; i<this.storeHours; i++){
         this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
     }
 };
+//Populates this.cookieSoldDay[] and calculates this.cookieDayTotal
 Store.prototype.cookieSoldHour = function(){
     for(var i=0; i<this.storeHours; i++){
         this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
@@ -33,6 +36,7 @@ Store.prototype.cookieSoldHour = function(){
         }
     }  
 };
+//Creates Table Data. Includes Location and Data for Sales
 Store.prototype.render = function() {
     var trEl = document.createElement('tr'); // create tr
     var tdEl = document.createElement('td'); // create td
@@ -45,14 +49,42 @@ Store.prototype.render = function() {
         trEl.appendChild(tdEl); // append the td
     }
     storeTable.appendChild(trEl); // append the tr
-} 
-
-new Store('alkiStore', 'Alki Store', 2, 16, 4.6);
-new Store('pikeStore','Pike Store', 23, 65, 6.3,);
-new Store('seaTacStore', 'SeaTac Store', 3, 24, 1.2);
-new Store('capHillStore', 'Capital Hill Seattle', 23, 65, 6.3);
-new Store('seaCenterStore','Seattle Center Store', 11, 38, 3.7);
-
+}
+function renderAllStores(){
+    stores.innerHTML = '';
+    for(var i=0; i<patStores.length; i++){
+        stores.appendChild(patStores[i].render());
+    }
+}
+//Inputs for Stores and Data
+new Store('Alki Store', 2, 16, 4.6);
+new Store('Pike Store', 23, 65, 6.3,);
+new Store('SeaTac Store', 3, 24, 1.2);
+new Store('Capital Hill Seattle', 23, 65, 6.3);
+new Store('Seattle Center Store', 11, 38, 3.7);
+new Store('Sean Place', 10, 50, 5.5);
+//Handler for Submission Form
+function handleDataSubmit(event){
+    event.preventDefault();
+    if (!event.target.storeLocation.value||!event.target.minCust.value||!event.target.maxCust.value||!event.target.avgSale.value){
+        return alert('Fields cannot be empty!');
+    }
+    var location = event.target.storeLocation.value;
+    var min = event.target.minCust.value;
+    var max = event.target.maxCust.value;
+    var avg = event.target.avgSale.value;
+    //Create New Store Object
+    var newStore = new Store(location,min,max,avg);
+    //Clears Submission Form
+    event.target.location.value = null;
+    event.target.min.value = null;
+    event.target.max.value = null;
+    event.target.avg.value = null;
+    //Pushes New Store Object into Store Array
+    patStores.push(newStore);
+    renderAllStores();
+}
+//Creates Row for Times
 function renderTimeHeader(){
     var trEl = document.createElement('tr');
     var thEl = document.createElement('th');
@@ -65,7 +97,7 @@ function renderTimeHeader(){
     }
     storeTable.appendChild(trEl);
 }
-//All Stores Total for Day Row
+//Creates Row for Total Sales of Company at each Time
 function renderAllStoresDayTotal(){
     var trEl = document.createElement('tr');
     var thEl = document.createElement('th');
@@ -78,6 +110,7 @@ function renderAllStoresDayTotal(){
     }
     storeTable.appendChild(trEl);
 }
+//Creates Data fro Total Sales of Company at each Time
 function allStoresTotal(){
     for(var i = 0; i<hours.length; i++){
         var totals=0;
@@ -87,6 +120,8 @@ function allStoresTotal(){
         allStoresTotals.push(totals);
     }
 }
-
+//Listens for SUBMIT and the does function handleDataSubmit
+dataForm.addEventListener('submit', handleDataSubmit);
+//Calls Final Row with Company Totals
 allStoresTotal();
 renderAllStoresDayTotal();
