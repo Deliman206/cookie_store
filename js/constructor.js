@@ -15,7 +15,6 @@ function Store(name, minCust, maxCust, avgCookieCust){
     patStores.push(this);
     this.custHour();
     this.cookieSoldHour();
-    this.render();
 }
 //Populates this.custDay[]
 Store.prototype.custHour = function(){
@@ -49,7 +48,7 @@ Store.prototype.render = function() {
     storeTable.appendChild(trEl); // append the tr
 }
 //Handler for Submission Form
-function handleDataSubmit(){
+function handleDataSubmit(event){
     event.preventDefault();
     if (!event.target.storeLocation.value||!event.target.minCust.value||!event.target.maxCust.value||!event.target.avgSale.value){
         return alert('Fields cannot be empty!');
@@ -57,16 +56,12 @@ function handleDataSubmit(){
     var name = event.target.storeLocation.value;
     var min = parseInt(event.target.minCust.value);
     var max = parseInt(event.target.maxCust.value);
-    var avg = parseInt(event.target.avgSale.value);
+    var avg = parseFloat(event.target.avgSale.value);
     //Create New Store Object
     var newStore = new Store(name,min,max,avg);
     //Clears Submission Form
-    event.target.name.value = null;
-    event.target.min.value = null;
-    event.target.max.value = null;
-    event.target.avg.value = null;
+    event.target.reset();
     //Pushes New Store Object into Store Array
-    patStores.push(newStore);
     renderAllStores();
 }
 //Creates Row for Times
@@ -97,6 +92,7 @@ function renderAllStoresDayTotal(){
 }
 //Creates Data for Total Sales of Company at each Time
 function allStoresTotal(){
+    allStoresTotals = [];
     for(var i = 0; i<hours.length; i++){
         var totals=0;
         for(var j = 0; j< patStores.length; j++){
@@ -107,13 +103,17 @@ function allStoresTotal(){
 }
 //Clears the Table and Reloads Everytime New Data is Entered
 function renderAllStores(){
-    stores.innerHTML = '';
+    storeTable.innerHTML ='';
+    //Calls First Row with Company Hours
+    renderTimeHeader();
     for(var i=0; i<patStores.length; i++){
-        stores.appendChild(patStores[i].render());
+        patStores[i].render();
     }
+    //Calls Final Row with Company Totals
+    allStoresTotal();
+    renderAllStoresDayTotal();
 }
-//Calls First Row with Company Hours
-renderTimeHeader();
+
 //Inputs for Stores and Data
 new Store('Alki Store', 2, 16, 4.6);
 new Store('Pike Store', 23, 65, 6.3,);
@@ -122,6 +122,4 @@ new Store('Capital Hill Seattle', 23, 65, 6.3);
 new Store('Seattle Center Store', 11, 38, 3.7);
 //Listens for SUBMIT and the does function handleDataSubmit
 dataForm.addEventListener('submit', handleDataSubmit);
-//Calls Final Row with Company Totals
-allStoresTotal();
-renderAllStoresDayTotal();
+renderAllStores();
