@@ -33,7 +33,7 @@ Store.prototype.cookieSoldHour = function(){
         }
     }  
 };
-//Creates Table Data. Includes Location and Data for Sales
+//Creates Table Data for Sales. Includes Location and Data for Sales
 Store.prototype.render = function() {
     var trEl = document.createElement('tr'); // create tr
     var tdEl = document.createElement('td'); // create td
@@ -43,6 +43,20 @@ Store.prototype.render = function() {
     for(var i=0; i<hours.length; i++){
         tdEl = document.createElement('td'); // create td
         tdEl.textContent = this.cookieSoldDay[i]; // give td content (Cookies Sold for an individual store)
+        trEl.appendChild(tdEl); // append the td
+    }
+    storeTable.appendChild(trEl); // append the tr
+}
+//Creates Table Data for Customers. Includes Location and Data for Sales
+Store.prototype.renderCust = function() {
+    var trEl = document.createElement('tr'); // create tr
+    var tdEl = document.createElement('td'); // create td
+    tdEl.textContent = this.name; // give td content (Name for an individual store)
+    trEl.appendChild(tdEl);  // append the td
+
+    for(var i=0; i<hours.length; i++){
+        tdEl = document.createElement('td'); // create td
+        tdEl.textContent = this.custDay[i]; // give td content (Cookies Sold for an individual store)
         trEl.appendChild(tdEl); // append the td
     }
     storeTable.appendChild(trEl); // append the tr
@@ -108,6 +122,30 @@ function renderAllStoresDayTotal(){
         trEl.appendChild(thEl);
     }
     storeTable.appendChild(trEl);
+}
+//Creates Row for Total Customers of Company at each Time
+function renderAllStoresCustTotal(){
+    var trEl = document.createElement('tr');
+    var thEl = document.createElement('th');
+    thEl.textContent = 'Total';
+    trEl.appendChild(thEl);
+    for( var i=0; i<hours.length; i++){
+        thEl = document.createElement('th');
+        thEl.textContent = allStoresCustTotals[i];
+        trEl.appendChild(thEl);
+    }
+    storeTable.appendChild(trEl);
+}
+//Creates Data for Total Sales of Company at each Time
+function createCustTotal(){
+    allStoresTotals = [];
+    for(var i = 0; i<hours.length; i++){
+        var totals=0;
+        for(var j = 0; j< patStores.length; j++){
+            totals+=patStores[j].custDay[i];
+        }
+        allStoresTotals.push(totals);
+    }
 }
 //Creates Data for Total Sales of Company at each Time
 function allStoresTotal(){
