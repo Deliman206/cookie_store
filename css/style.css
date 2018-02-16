@@ -3,7 +3,33 @@ html {
 }
 
 body {
-    width: 100%;
+    width: 960px;
     height: 100%;
     background-color: #fafce3;
+}
+#salmon{
+    z-index: -1;
+}
+#family{
+    width:70%;
+    height:70%;
+}
+#fish{
+    width:10%;
+    height:10%;
+}
+#hoursTitle{
+    display: inline-block;
+}
+.rightTitle{
+    display: inline-block;
+}
+#middle{
+    display: inline-block;
+}
+#storeHours{
+    width:480px;
+}
+#aboutMe{
+    width:480px;
 }
