@@ -1,0 +1,52 @@
+body{
+    width:100%;
+    height:100%;
+}
+header{
+    width:100%
+}
+nav{
+    background-image: url(../img/chinook.jpg);
+    height:180px;
+}
+nav ul{
+    z-index: 1;
+    height:350px;
+}
+nav p{
+    align-content: center;
+}
+header p{
+    display:inline-block;
+}
+main{
+    width:100%;
+    height:350px;
+}
+#family{
+    width:100%;
+    height:50%;
+}
+#fish{
+    width:20%;
+    height:10%;
+}
+#store_hours{
+    margin-left: 10%;
+}
+main section{
+    display:inline-block;
+    width: 40%;
+    height:400px;
+    position: static;
+}
+main h2{
+    display:inline-block;
+}
+.opp_hours{
+    display:inline-block;
+    font-size:150%;
+}
+#hours_banner{
+    display:inline-block;
+}
