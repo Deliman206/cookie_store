@@ -6,7 +6,8 @@ header{
     width:100%
 }
 nav{
-    background-image: url(../img/chinook.jpg);
+    /* background-image: url(../img/chinook.jpg); */
+    background-image: url(../img/salmon.png);
     height:180px;
 }
 nav ul{
