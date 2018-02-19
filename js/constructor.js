@@ -1,5 +1,6 @@
 var patStores = [];
 var allStoresTotals = [];
+var allStoresCustTotals= [];
 var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','TOTAL'];
 var storeTable = document.getElementById('stores');
 var dataForm = document.getElementById('data-form');
@@ -137,17 +138,6 @@ function renderAllStoresCustTotal(){
     storeTable.appendChild(trEl);
 }
 //Creates Data for Total Sales of Company at each Time
-function createCustTotal(){
-    allStoresTotals = [];
-    for(var i = 0; i<hours.length; i++){
-        var totals=0;
-        for(var j = 0; j< patStores.length; j++){
-            totals+=patStores[j].custDay[i];
-        }
-        allStoresTotals.push(totals);
-    }
-}
-//Creates Data for Total Sales of Company at each Time
 function allStoresTotal(){
     allStoresTotals = [];
     for(var i = 0; i<hours.length; i++){
@@ -156,6 +146,17 @@ function allStoresTotal(){
             totals+=patStores[j].cookieSoldDay[i];
         }
         allStoresTotals.push(totals);
+    }
+}
+//Creates Data for Total Customers of Company at each Time
+function createCustTotal(){
+    allStoresCustTotals = [];
+    for(var i = 0; i<hours.length; i++){
+        var totals=0;
+        for(var j = 0; j< patStores.length; j++){
+            totals+=patStores[j].custDay[i];
+        }
+        allStoresCustTotals.push(totals);
     }
 }
 //Clears the Table and Reloads Everytime New Data is Entered
