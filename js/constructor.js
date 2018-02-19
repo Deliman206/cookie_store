@@ -4,6 +4,7 @@ var allStoresCustTotals= [];
 var hours = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','TOTAL'];
 var storeTable = document.getElementById('stores');
 var dataForm = document.getElementById('data-form');
+var custTable = document.getElementById('customers');
 function Store(name, minCust, maxCust, avgCookieCust){ 
     this.name = name;
     this.minCust = minCust;
@@ -13,6 +14,7 @@ function Store(name, minCust, maxCust, avgCookieCust){
     this.custDay = [];
     this.cookieSoldDay = [];
     this.cookieDayTotal = 0;
+    this.custDayTotal= 0;
     patStores.push(this);
     this.custHour();
     this.cookieSoldHour();
@@ -21,6 +23,11 @@ function Store(name, minCust, maxCust, avgCookieCust){
 Store.prototype.custHour = function(){
     for (var i = 0; i<this.storeHours; i++){
         this.custDay.push(Math.floor(Math.random()*(this.maxCust-this.minCust)+this.minCust));
+        this.custDayTotal = this.custDayTotal + this.custDay[i];
+       
+        if(this.custDay.length === hours.length-1){
+            this.custDay.push(this.custDayTotal);
+        }
     }
 };
 //Populates this.cookieSoldDay[] and calculates this.cookieDayTotal
@@ -28,7 +35,7 @@ Store.prototype.cookieSoldHour = function(){
     for(var i=0; i<this.storeHours; i++){
         this.cookieSoldDay.push(Math.ceil(this.avgCookieCust * this.custDay[i]));
         this.cookieDayTotal = this.cookieDayTotal + this.cookieSoldDay[i];
-        
+
         if (this.cookieSoldDay.length === this.storeHours ){
             this.cookieSoldDay.push(this.cookieDayTotal);
         }
@@ -60,8 +67,115 @@ Store.prototype.renderCust = function() {
         tdEl.textContent = this.custDay[i]; // give td content (Cookies Sold for an individual store)
         trEl.appendChild(tdEl); // append the td
     }
-    storeTable.appendChild(trEl); // append the tr
+    custTable.appendChild(trEl); // append the tr
 }
+//-------------------------------------------------------------------------------------------------
+//Table Set up for Sales Data
+//-------------------------------------------------------------------------------------------------
+
+//Creates Row for Times at Sales Table
+function renderTimeHeader(){
+    var trEl = document.createElement('tr');
+    var thEl = document.createElement('th');
+    thEl.textContent = 'Locations';
+    trEl.appendChild(thEl);
+    for (var i=0; i<hours.length; i++){
+        thEl = document.createElement('th');
+        thEl.textContent = hours[i];
+        trEl.appendChild(thEl);
+    }
+    storeTable.appendChild(trEl);
+}
+//Creates Row for Total Sales of Company at each Time
+function renderAllStoresDayTotal(){
+    var trEl = document.createElement('tr');
+    var thEl = document.createElement('th');
+    thEl.textContent = 'Total';
+    trEl.appendChild(thEl);
+    for( var i=0; i<hours.length; i++){
+        thEl = document.createElement('th');
+        thEl.textContent = allStoresTotals[i];
+        trEl.appendChild(thEl);
+    }
+    storeTable.appendChild(trEl);
+}
+//Creates Data for Total Sales of Company at each Time
+function allStoresTotal(){
+    allStoresTotals = [];
+    for(var i = 0; i<hours.length; i++){
+        var totals=0;
+        for(var j = 0; j< patStores.length; j++){
+            totals+=patStores[j].cookieSoldDay[i];
+        }
+        allStoresTotals.push(totals);
+    }
+}
+//Clears the Table at Sales and Reloads Everytime New Data is Entered
+function renderAllStores(){
+    storeTable.innerHTML ='';
+    //Calls First Row with Company Hours
+    renderTimeHeader();
+    for(var i=0; i<patStores.length; i++){
+        patStores[i].render();
+    }
+    //Calls Final Row with Company Totals
+    allStoresTotal();
+    renderAllStoresDayTotal();
+}
+//-------------------------------------------------------------------------------------------------
+//Table Set up for Customer Data
+//-------------------------------------------------------------------------------------------------
+
+//Creates Row for Times at Customers Table
+function renderTimeHeaderCust(){
+    var trEl = document.createElement('tr');
+    var thEl = document.createElement('th');
+    thEl.textContent = 'Locations';
+    trEl.appendChild(thEl);
+    for (var i=0; i<hours.length; i++){
+        thEl = document.createElement('th');
+        thEl.textContent = hours[i];
+        trEl.appendChild(thEl);
+    }
+    custTable.appendChild(trEl);
+}
+//Creates Row for Total Customers of Company at each Time
+function renderAllStoresCustTotal(){
+    var trEl = document.createElement('tr');
+    var thEl = document.createElement('th');
+    thEl.textContent = 'Total';
+    trEl.appendChild(thEl);
+    for( var i=0; i<hours.length; i++){
+        thEl = document.createElement('th');
+        thEl.textContent = allStoresCustTotals[i];
+        trEl.appendChild(thEl);
+    }
+    custTable.appendChild(trEl);
+}
+//Creates Data for Total Customers of Company at each Time
+function createCustTotal(){
+    allStoresCustTotals = [];
+    for(var i = 0; i<hours.length; i++){
+        var totals=0;
+        for(var j = 0; j< patStores.length; j++){
+            totals+=patStores[j].custDay[i];
+        }
+        allStoresCustTotals.push(totals);
+    }
+}
+//Clears the Table at Customers and Reloads Everytime New Data is Entered
+function renderAllStoresCust(){
+    custTable.innerHTML ='';
+    //Calls First Row with Company Hours
+    renderTimeHeaderCust();
+    for(var i=0; i<patStores.length; i++){
+        patStores[i].renderCust();
+    }
+    //Calls Final Row with Company Totals
+    createCustTotal();
+    renderAllStoresCustTotal();
+}
+//-------------------------------------------------------------------------------------------------
 //Handler for Submission Form
 function handleDataSubmit(event){
     event.preventDefault();
@@ -88,6 +202,7 @@ function handleDataSubmit(event){
 
             event.target.reset();
             renderAllStores();
+            renderAllStoresCust();
             return;
         }
     }
@@ -97,81 +212,8 @@ function handleDataSubmit(event){
     event.target.reset();
     //Pushes New Store Object into Store Array
     renderAllStores();
+    renderAllStoresCust();
 }
-//Creates Row for Times
-function renderTimeHeader(){
-    var trEl = document.createElement('tr');
-    var thEl = document.createElement('th');
-    thEl.textContent = 'Locations';
-    trEl.appendChild(thEl);
-    for (var i=0; i<hours.length; i++){
-        thEl = document.createElement('th');
-        thEl.textContent = hours[i];
-        trEl.appendChild(thEl);
-    }
-    storeTable.appendChild(trEl);
-}
-//Creates Row for Total Sales of Company at each Time
-function renderAllStoresDayTotal(){
-    var trEl = document.createElement('tr');
-    var thEl = document.createElement('th');
-    thEl.textContent = 'Total';
-    trEl.appendChild(thEl);
-    for( var i=0; i<hours.length; i++){
-        thEl = document.createElement('th');
-        thEl.textContent = allStoresTotals[i];
-        trEl.appendChild(thEl);
-    }
-    storeTable.appendChild(trEl);
-}
-//Creates Row for Total Customers of Company at each Time
-function renderAllStoresCustTotal(){
-    var trEl = document.createElement('tr');
-    var thEl = document.createElement('th');
-    thEl.textContent = 'Total';
-    trEl.appendChild(thEl);
-    for( var i=0; i<hours.length; i++){
-        thEl = document.createElement('th');
-        thEl.textContent = allStoresCustTotals[i];
-        trEl.appendChild(thEl);
-    }
-    storeTable.appendChild(trEl);
-}
-//Creates Data for Total Sales of Company at each Time
-function allStoresTotal(){
-    allStoresTotals = [];
-    for(var i = 0; i<hours.length; i++){
-        var totals=0;
-        for(var j = 0; j< patStores.length; j++){
-            totals+=patStores[j].cookieSoldDay[i];
-        }
-        allStoresTotals.push(totals);
-    }
-}
-//Creates Data for Total Customers of Company at each Time
-function createCustTotal(){
-    allStoresCustTotals = [];
-    for(var i = 0; i<hours.length; i++){
-        var totals=0;
-        for(var j = 0; j< patStores.length; j++){
-            totals+=patStores[j].custDay[i];
-        }
-        allStoresCustTotals.push(totals);
-    }
-}
-//Clears the Table and Reloads Everytime New Data is Entered
-function renderAllStores(){
-    storeTable.innerHTML ='';
-    //Calls First Row with Company Hours
-    renderTimeHeader();
-    for(var i=0; i<patStores.length; i++){
-        patStores[i].render();
-    }
-    //Calls Final Row with Company Totals
-    allStoresTotal();
-    renderAllStoresDayTotal();
-}
-
 //Inputs for Stores and Data
 new Store('Alki Store', 2, 16, 4.6);
 new Store('Pike Store', 23, 65, 6.3,);
@@ -181,3 +223,4 @@ new Store('Seattle Center Store', 11, 38, 3.7);
 //Listens for SUBMIT and the does function handleDataSubmit
 dataForm.addEventListener('submit', handleDataSubmit);
 renderAllStores();
+renderAllStoresCust();
