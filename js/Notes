@@ -1,0 +1,26 @@
+
+Store.prototype.renderStore =function(this.name) {
+    custTable.innerHTML ='';
+    renderTimeHeader();
+    for(var i=0; i<patStores.length; i++){
+        patStores[i].renderTable (storeName,tableId, arrayTotals){
+            var trEl = document.createElement('tr');
+            var tdEl = document.createElement('td');
+            allStoresTotals = [];
+            thEl.textContent = storeName;
+            trEl.appendChild(tdEl);
+            for (var i=0; i<hours.length; i++){
+                var totals=0;
+                tdEl = document.createElement('td');
+                tdEl.textContent = arrayTotals[i];
+                trEl.appendChild(tdEl);
+                for(var j = 0; j< patStores.length; j++){
+                    totals+=patStores[j].arrayTotals[i];
+                }
+                allStoresTotals.push(totals);
+            }
+            tableId.appendChild(trEl);  
+        }
+    }
+}
+}

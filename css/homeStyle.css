@@ -2,6 +2,7 @@ body{
     width:960px;
     height:100%;
     margin-left:5%;
+    background-image: url('../img/download.jpeg');
 }
 hr{
     width:100%;
@@ -9,6 +10,10 @@ hr{
     outline-width: 10px;
     margin-left: 5%;
     margin-right:5%;
+}
+#thefish{
+    width:80%;
+    margin-left:10%;
 }
 header{
     width:100%
@@ -20,8 +25,10 @@ margin-left:0% auto;
 width:80%;
 height:30%;
 }
-nav{
-    margin-bottom:10%;
+
+nav h1{
+    display:block;
+    margin-left:20%;
 }
 nav ul{
     margin-left:30%;
@@ -30,7 +37,9 @@ nav p{
     margin-left:10%;
     font-size: 20px;
     display: inline-block;
+    margin-top:20%;
 }
+    
 #about-us{
     width:50%;
     display:inline-block;
@@ -41,6 +50,7 @@ nav p{
 #store-hours{
     display:inline-block;
     width:50%;
+    height:50%;
     position:absolute;
 }
 #store-hours h2{
